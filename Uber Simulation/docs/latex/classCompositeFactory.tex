@@ -1,0 +1,90 @@
+\hypertarget{classCompositeFactory}{}\doxysection{Composite\+Factory Class Reference}
+\label{classCompositeFactory}\index{CompositeFactory@{CompositeFactory}}
+
+
+Inheritance diagram for Composite\+Factory\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=185pt]{classCompositeFactory__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Composite\+Factory\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=185pt]{classCompositeFactory__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classIEntity}{I\+Entity}} $\ast$ \mbox{\hyperlink{classCompositeFactory_a46a24b2fa2e5c077bd140b7075f61ff9}{Create\+Entity}} (Json\+Object \&entity)
+\begin{DoxyCompactList}\small\item\em Create a Entity object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classCompositeFactory_a1e9833480826a2661f293d7e2d6358d5}{Add\+Factory}} (\mbox{\hyperlink{classIEntityFactory}{I\+Entity\+Factory}} $\ast$factory\+Entity)
+\begin{DoxyCompactList}\small\item\em adds the new factory \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classCompositeFactory_a5601892e2e4dd1ab9f9ab9316be1cd10}{$\sim$\+Composite\+Factory}} ()
+\begin{DoxyCompactList}\small\item\em Destroy the Composite Factory object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classCompositeFactory_a5601892e2e4dd1ab9f9ab9316be1cd10}\label{classCompositeFactory_a5601892e2e4dd1ab9f9ab9316be1cd10}} 
+\index{CompositeFactory@{CompositeFactory}!````~CompositeFactory@{$\sim$CompositeFactory}}
+\index{````~CompositeFactory@{$\sim$CompositeFactory}!CompositeFactory@{CompositeFactory}}
+\doxysubsubsection{\texorpdfstring{$\sim$CompositeFactory()}{~CompositeFactory()}}
+{\footnotesize\ttfamily Composite\+Factory\+::$\sim$\+Composite\+Factory (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Destroy the Composite Factory object. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classCompositeFactory_a1e9833480826a2661f293d7e2d6358d5}\label{classCompositeFactory_a1e9833480826a2661f293d7e2d6358d5}} 
+\index{CompositeFactory@{CompositeFactory}!AddFactory@{AddFactory}}
+\index{AddFactory@{AddFactory}!CompositeFactory@{CompositeFactory}}
+\doxysubsubsection{\texorpdfstring{AddFactory()}{AddFactory()}}
+{\footnotesize\ttfamily void Composite\+Factory\+::\+Add\+Factory (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classIEntityFactory}{I\+Entity\+Factory}} $\ast$}]{factory\+Entity }\end{DoxyParamCaption})}
+
+
+
+adds the new factory 
+
+
+\begin{DoxyParams}{Parameters}
+{\em factory\+Entity} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classCompositeFactory_a46a24b2fa2e5c077bd140b7075f61ff9}\label{classCompositeFactory_a46a24b2fa2e5c077bd140b7075f61ff9}} 
+\index{CompositeFactory@{CompositeFactory}!CreateEntity@{CreateEntity}}
+\index{CreateEntity@{CreateEntity}!CompositeFactory@{CompositeFactory}}
+\doxysubsubsection{\texorpdfstring{CreateEntity()}{CreateEntity()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classIEntity}{I\+Entity}} $\ast$ Composite\+Factory\+::\+Create\+Entity (\begin{DoxyParamCaption}\item[{Json\+Object \&}]{entity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Create a Entity object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em entity} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+I\+Entity$\ast$ 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classIEntityFactory_a9bd53cf7ca21ab252968062ea5d88180}{I\+Entity\+Factory}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/husse285/csci-\/3081w-\/f22/\+Team-\/010-\/34-\/\+H\+O\+M\+E\+W\+O\+R\+K04/libs/transit/include/Composite\+Factory.\+h\item 
+/home/husse285/csci-\/3081w-\/f22/\+Team-\/010-\/34-\/\+H\+O\+M\+E\+W\+O\+R\+K04/libs/transit/src/Composite\+Factory.\+cc\end{DoxyCompactItemize}

@@ -1,0 +1,127 @@
+[
+    {
+        "command": "CreateEntity",
+      	"params": {
+      	    "type": "drone",
+            "name": "Drone",
+      	    "mesh": "assets/model/drone.glb",
+      	    "position": [498.292, 270, -228.623],
+      	    "scale": [0.1, 0.1, 0.1],
+      	    "rotation": [0, 0, 0, 0],
+            "direction": [1,0,0],
+            "speed": 30.0,
+            "radius": 1.0,
+      	    "start": 2.0,
+      	    "duration": 2.0,
+            "offset": [0, 0.6, 0]
+    	  }
+    },
+    {
+        "command": "CreateEntity",
+      	"params": {
+      	    "type": "rechargeStation",
+            "name": "RechargeStation1",
+      	    "mesh": "assets/model/battery.glb",
+      	    "position": [479.292, 250, -221.623],
+      	    "scale": [0.9, 0.9, 0.9],
+      	    "rotation": [0, 0, 0, 0],
+            "direction": [1,0,0],
+            "speed": 0.0,
+            "radius": 1.0,
+      	    "start": 2.0,
+      	    "duration": 2.0,
+            "offset": [0, 0.6, 0]
+    	  }
+    },
+    {
+        "command": "CreateEntity",
+      	"params": {
+      	    "type": "rechargeStation",
+            "name": "RechargeStation2",
+      	    "mesh": "assets/model/battery.glb",
+      	    "position": [-567.44, 250, 642.623],
+      	    "scale": [0.9, 0.9, 0.9],
+      	    "rotation": [0, 0, 0, 0],
+            "direction": [1,0,0],
+            "speed": 0.0,
+            "radius": 1.0,
+      	    "start": 2.0,
+      	    "duration": 2.0,
+            "offset": [0, 0.6, 0]
+    	  }
+    },
+    {
+        "command": "CreateEntity",
+      	"params": {
+      	    "type": "rechargeStation",
+            "name": "RechargeStation3",
+      	    "mesh": "assets/model/battery.glb",
+      	    "position": [211.44, 250, -402.623],
+      	    "scale": [0.9, 0.9, 0.9],
+      	    "rotation": [0, 0, 0, 0],
+            "direction": [1,0,0],
+            "speed": 0.0,
+            "radius": 1.0,
+      	    "start": 2.0,
+      	    "duration": 2.0,
+            "offset": [0, 0.6, 0]
+    	  }
+    },
+    {
+        "command": "CreateEntity",
+      	"params": {
+      	    "type": "rechargeStation",
+            "name": "RechargeStation4",
+      	    "mesh": "assets/model/battery.glb",
+      	    "position": [-156.34, 250, 52.623],
+      	    "scale": [0.9, 0.9, 0.9],
+      	    "rotation": [0, 0, 0, 0],
+            "direction": [1,0,0],
+            "speed": 0.0,
+            "radius": 1.0,
+      	    "start": 2.0,
+      	    "duration": 2.0,
+            "offset": [0, 0.6, 0]
+    	  }
+    },
+    {
+        "command": "CreateEntity",
+      	"params": {
+      	    "type": "rechargeStation",
+            "name": "RechargeStation5",
+      	    "mesh": "assets/model/battery.glb",
+      	    "position": [-1178.43, 250, -99.743],
+      	    "scale": [0.9, 0.9, 0.9],
+      	    "rotation": [0, 0, 0, 0],
+            "direction": [1,0,0],
+            "speed": 0.0,
+            "radius": 1.0,
+      	    "start": 2.0,
+      	    "duration": 2.0,
+            "offset": [0, 0.6, 0]
+    	  }
+    },
+    {
+        "command": "SetScene",
+        "params": {
+            "type": "scene",
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "mesh": "assets/model/umn.obj",
+            "texture": "assets/texture/umn.png",
+            "position": [-1.5,-13,-1.5],
+            "scale": [0.05,0.05,0.05]
+        }
+    },
+    {
+        "command": "AddMesh",
+        "params": {
+            "type": "route",
+            "mesh": "assets/model/routes.obj",
+            "position": [-0.0,-12.5,-0.0],
+            "scale": [0.0705,0.05,0.0705],
+            "color": "0xff00e1"
+        }
+    }
+]

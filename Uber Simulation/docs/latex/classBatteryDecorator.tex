@@ -1,0 +1,128 @@
+\hypertarget{classBatteryDecorator}{}\doxysection{Battery\+Decorator Class Reference}
+\label{classBatteryDecorator}\index{BatteryDecorator@{BatteryDecorator}}
+
+
+Inheritance diagram for Battery\+Decorator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=181pt]{classBatteryDecorator__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Battery\+Decorator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=181pt]{classBatteryDecorator__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBatteryDecorator_aff0de444c8841c8e582a00cc7e01f876}\label{classBatteryDecorator_aff0de444c8841c8e582a00cc7e01f876}} 
+{\bfseries Battery\+Decorator} (\mbox{\hyperlink{classIStrategy}{I\+Strategy}} $\ast$strategy\+\_\+, \mbox{\hyperlink{classIEntity}{I\+Entity}} $\ast$robot\+\_\+, float charge\+\_\+, std\+::vector$<$ \mbox{\hyperlink{classIEntity}{I\+Entity}} $\ast$ $>$ stations\+\_\+)
+\item 
+void \mbox{\hyperlink{classBatteryDecorator_ae7565bdffb082fe88f65085c411cf805}{Move}} (\mbox{\hyperlink{classIEntity}{I\+Entity}} $\ast$entity, double dt)
+\begin{DoxyCompactList}\small\item\em moves the entity \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classBatteryDecorator_a32f8cdd61118fdd818569e4fa039b5f0}{Is\+Completed}} ()
+\begin{DoxyCompactList}\small\item\em checks if destination has been reached \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBatteryDecorator_a4b42fbc2e1bccfe9c8a7ec59046824a4}\label{classBatteryDecorator_a4b42fbc2e1bccfe9c8a7ec59046824a4}} 
+void {\bfseries Get\+Nearest\+Recharge\+Station} (std\+::vector$<$ \mbox{\hyperlink{classIEntity}{I\+Entity}} $\ast$ $>$ recharge\+Stations, \mbox{\hyperlink{classVector3}{Vector3}} position)
+\item 
+\mbox{\Hypertarget{classBatteryDecorator_ad889bc59dc74d595c60eaf42058b8377}\label{classBatteryDecorator_ad889bc59dc74d595c60eaf42058b8377}} 
+void {\bfseries Recharge} (double dt)
+\item 
+float \mbox{\hyperlink{classBatteryDecorator_a0d3cfd6afdf0fb2fb734e7db89b396d8}{Get\+Charge}} ()
+\begin{DoxyCompactList}\small\item\em Get the Charge of the drone. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBatteryDecorator_ae9cdab55b93548a288d735b45493ec3a}{Set\+Charge}} (float c)
+\begin{DoxyCompactList}\small\item\em Set the Charge of the drone. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classBatteryDecorator_a0d3cfd6afdf0fb2fb734e7db89b396d8}\label{classBatteryDecorator_a0d3cfd6afdf0fb2fb734e7db89b396d8}} 
+\index{BatteryDecorator@{BatteryDecorator}!GetCharge@{GetCharge}}
+\index{GetCharge@{GetCharge}!BatteryDecorator@{BatteryDecorator}}
+\doxysubsubsection{\texorpdfstring{GetCharge()}{GetCharge()}}
+{\footnotesize\ttfamily float Battery\+Decorator\+::\+Get\+Charge (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Get the Charge of the drone. 
+
+\begin{DoxyReturn}{Returns}
+drone 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classIStrategy_a07f19a4e3cbca205a9cc054feb8dcef9}{I\+Strategy}}.
+
+\mbox{\Hypertarget{classBatteryDecorator_a32f8cdd61118fdd818569e4fa039b5f0}\label{classBatteryDecorator_a32f8cdd61118fdd818569e4fa039b5f0}} 
+\index{BatteryDecorator@{BatteryDecorator}!IsCompleted@{IsCompleted}}
+\index{IsCompleted@{IsCompleted}!BatteryDecorator@{BatteryDecorator}}
+\doxysubsubsection{\texorpdfstring{IsCompleted()}{IsCompleted()}}
+{\footnotesize\ttfamily bool Battery\+Decorator\+::\+Is\+Completed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+checks if destination has been reached 
+
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classIStrategy_a13c6048efd232b696db5f35000d5b106}{I\+Strategy}}.
+
+\mbox{\Hypertarget{classBatteryDecorator_ae7565bdffb082fe88f65085c411cf805}\label{classBatteryDecorator_ae7565bdffb082fe88f65085c411cf805}} 
+\index{BatteryDecorator@{BatteryDecorator}!Move@{Move}}
+\index{Move@{Move}!BatteryDecorator@{BatteryDecorator}}
+\doxysubsubsection{\texorpdfstring{Move()}{Move()}}
+{\footnotesize\ttfamily void Battery\+Decorator\+::\+Move (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classIEntity}{I\+Entity}} $\ast$}]{entity,  }\item[{double}]{dt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+moves the entity 
+
+
+\begin{DoxyParams}{Parameters}
+{\em entity} & \\
+\hline
+{\em dt} & time \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classIStrategy_a69254389f4ef9a851dc5d40c4cc9aacd}{I\+Strategy}}.
+
+\mbox{\Hypertarget{classBatteryDecorator_ae9cdab55b93548a288d735b45493ec3a}\label{classBatteryDecorator_ae9cdab55b93548a288d735b45493ec3a}} 
+\index{BatteryDecorator@{BatteryDecorator}!SetCharge@{SetCharge}}
+\index{SetCharge@{SetCharge}!BatteryDecorator@{BatteryDecorator}}
+\doxysubsubsection{\texorpdfstring{SetCharge()}{SetCharge()}}
+{\footnotesize\ttfamily void Battery\+Decorator\+::\+Set\+Charge (\begin{DoxyParamCaption}\item[{float}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Set the Charge of the drone. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c} & \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{classIStrategy_a2d74f8ad68e2d281aec2b49c34d188a2}{I\+Strategy}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/husse285/csci-\/3081w-\/f22/\+Team-\/010-\/34-\/\+H\+O\+M\+E\+W\+O\+R\+K04/libs/transit/include/Battery\+Decorator.\+h\item 
+/home/husse285/csci-\/3081w-\/f22/\+Team-\/010-\/34-\/\+H\+O\+M\+E\+W\+O\+R\+K04/libs/transit/src/Battery\+Decorator.\+cc\end{DoxyCompactItemize}
