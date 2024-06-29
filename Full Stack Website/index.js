@@ -1,6 +1,6 @@
 // YOU CAN USE THIS FILE AS REFERENCE FOR SERVER DEVELOPMENT
 
-// include the express module
+// include the express modules
 var express = require("express");
 
 // create an express application
@@ -8,7 +8,7 @@ var app = express();
 const url = require('url');
 
 // helps in extracting the body portion of an incoming request stream
-var bodyparser = require('body-parser');
+var bodyparser = require('body-parser'); // this has been depricated, is now part of express...
 
 // fs module - provides an API for interacting with the file system
 var fs = require("fs");
@@ -19,27 +19,17 @@ var session = require('express-session');
 // include the mysql module
 var mysql = require("mysql");
 
-// helpful for reading, compiling, rendering pug templates
-const pug = require("pug");  
-
-
 // Bcrypt library for comparing password hashes
 const bcrypt = require('bcrypt');
-const { resourceLimits } = require("worker_threads");
 
-// A  library that can help read uploaded file for bonus.
+// A possible library to help reading uploaded file.
 // var formidable = require('formidable')
 
-const dbCon = mysql.createConnection({
-  host: "cse-mysql-classes-01.cse.umn.edu",
-  user: "C4131DF23U66",               // replace with the database user provided to you
-  password: "4406",                  // replace with the database password provided to you
-  database: "C4131DF23U66",           // replace with the database user provided to you
-  port: 3306
-});
 
 // apply the body-parser middleware to all incoming requests
 app.use(bodyparser());
+app.set('view engine', 'pug');
+app.set('views', __dirname + '/views');
 
 // use express-session
 // in mremory session is sufficient for this assignment
@@ -51,173 +41,222 @@ app.use(session({
 ));
 
 // server listens on port 9007 for incoming connections
-app.listen(8111, () => console.log('Listening on port 8111!'));
+app.listen(9007, () => console.log('Listening on port 9007!'));
 
+console.log("After listen");
 
 // function to return the welcome page
 app.get('/',function(req, res) {
-  res.sendFile(__dirname + '/client/welcome.html');
+  console.log("In Welcome");
+  res.render('welcome');
 });
 
-//function to return the login page
-app.get('/login', function(req, res){
-  if (req.session.user == undefined){
-    res.sendFile(__dirname + "/client/login.html");
-  }
-  else {
-    res.redirect("/schedule");
+app.get('/login',function(req, res) {
+  console.log("enter login")
+  if (req.session.loggedIn) {
+    // Redirect to the Schedule page if the user is logged in
+    console.log("already logged in")
+    res.redirect('/schedule');
+  } else {
+    // Otherwise, display the login page
+    res.render('login');
   }
 });
 
-//function to return the schedule page
-app.get('/schedule', function(req, res){
-  if (req.session.user == undefined){
-    res.redirect("/login");
-  }
-  else {
-    res.sendFile(__dirname + "/client/schedule.html");
-  }
-})
-
-app.post("/loggingIn", function(req, res){
-  var user = req.body.username;
-  var pass = req.body.password;
-
-  dbCon.query("SELECT * from tbl_accounts WHERE acc_login = " + mysql.escape(user), function(err, entries){
-    if (err) throw err;
-    if (entries.length > 0){
-      if (bcrypt.compareSync(pass, entries[0].acc_password)){
-        req.session.user = user;
-        res.json({status: "success"});
-      }
-      else {
-        res.json({status: "failure"});
-      }
+app.get('/logout', function(req, res) {
+  console.log("Logging out");
+  // Destroy the session
+  req.session.destroy(function(err) {
+    if (err) {
+      console.error("Error destroying session:", err);
+    } else {
+      console.log("Session destroyed successfully");
+      // Redirect to the login page
+      res.redirect('/login');
     }
-    else {
-      res.json({status: "failure"});
-    }
-  })
-});
-
-app.get("/getSchedule", function(req, res){
-  dbCon.query("SELECT * FROM tbl_events ORDER BY event_start ASC", function(err, entries){
-    if (err) throw err;
-    res.statusCode = 200;
-    res.setHeader("Content-type", "application/json");
-    res.write(JSON.stringify(entries));
-    res.end();
-  })
-});
-
-app.get("/editEvent", function (req, res) {
-  if (req.session.user == undefined){
-    res.redirect("/login");
-  }
-  else {
-    var eventID = req.query.eventID;
-    dbCon.query("SELECT * from tbl_events WHERE event_id = " + mysql.escape(eventID), function(err, entries){
-      if (err) throw err;
-
-      if (entries.length > 0) {
-        res.json(entries[0]);
-      } else {
-        res.sendStatus(404);
-      }
-    });
-  }
-});
-
-app.get("/addEvent", function(req, res){
-  if (req.session.user == undefined){
-    res.redirect("/login");
-  }
-  else {
-    res.sendFile(__dirname + "/client/addEvent.html");
-  }
-});
-
-app.post("/postEventEntry", function(req, res){
-  let event = {
-    event_day: req.body.day,
-    event_event: req.body.event,
-    event_start: req.body.start,
-    event_end: req.body.end,
-    event_location : req.body.location,
-    event_phone: req.body.phone,
-    event_info: req.body.info,
-    event_url: req.body.url
-  };
-
-  dbCon.query("INSERT tbl_events SET ?", event, function(err, entries){
-    if (err) throw err;
-    res.redirect("/schedule");
   });
 });
 
-app.get("/logout", function(req, res){
-  if (req.session){
-    req.session.destroy(function(err){
+app.get('/logincheck', function(req, res) {
+  // Get username and password from req body
+  var username = req.query.username;
+  var password = req.query.password;
+  console.log("in post username: " + username + " password: " + password)
+
+  // Create Connection
+  var connection = mysql.createConnection({
+    host: 'cse-mysql-classes-01.cse.umn.edu',
+    user: 'C4131S24NU35',
+    password: '1275',
+    database: 'C4131S24NU35'
+  });
+
+  connection.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected to MySQL database!");
+
+    // Query for existing username
+    var query = "SELECT * FROM tbl_accounts WHERE acc_login = ?";
+    connection.query(query, [username], function(err, results) {
       if (err) throw err;
-      res.redirect("/login");
+
+      if (results.length > 0) {
+        var user = results[0];
+        console.log("comparing")
+        // Compare passwords if username exists
+        if (bcrypt.compareSync(password, user.acc_password)) {
+            // Password correct
+            req.session.loggedIn = true;
+            res.json({status:'success'})
+            return;
+          } else {
+            // Password incorrect
+            //res.json({status:'fail'})
+            res.status(401).send('Invalid username or password');
+            return;
+          }
+      } else {
+        // Username doesn't exist
+        //res.json({status:'fail'})
+        res.status(401).send('Invalid username or password');
+        return
+      }
+
+      connection.end();
+      return;
     });
+  });
+});
+
+app.get('/schedule', function(req, res) {
+  console.log("schedule endpoint");
+  if (req.session.loggedIn) {
+    // Redirect to the Schedule page if the user is logged in
+    //console.log("already logged in")
+    res.render('schedule');
+  } else {
+    // Otherwise, display the login page
+    res.redirect('/login')
   }
 });
 
-// middle ware to serve static files
-app.use('/client', express.static(__dirname + '/client'));
+// Fill in schedule information
+app.get('/getSchedule', function(req, res) {
+  console.log("getSchedule endpoint");
+  
+  // Get the day parameter from the query
+  var day = req.query.day;
+  console.log(day)
+  
+  // Establish connection
+  var connection = mysql.createConnection({
+    host: 'cse-mysql-classes-01.cse.umn.edu',
+    user: 'C4131S24NU35',
+    password: '1275',
+    database: 'C4131S24NU35'
+  });
 
-app.post("/updateEvent", function (req, res) {
-  let eventID = req.query.eventID;
-  let event = {
-    event_day: req.body.day,
-    event_event: req.body.event,
-    event_start: req.body.start,
-    event_end: req.body.end,
-    event_location : req.body.location,
-    event_phone: req.body.phone,
-    event_info: req.body.info,
-    event_url: req.body.url
+  // Connect to the MySQL database
+  connection.connect(function(err) {
+    if (err) {
+      throw err;
+    } else {
+      console.log("before query")
+      // Query database for schedule information
+      var query = "SELECT * FROM tbl_events WHERE event_day = ? ORDER BY STR_TO_DATE(event_start, '%h:%i %p')";
+      connection.query(query, [day], function(err, rows, fields) {
+        if (err) throw err;
+
+        if (rows.length == 0){
+          console.error("No entries found");
+          res.json({status:'fail'})
+        } else {
+          //console.log(stringify(rows))
+          console.log("Rows:", rows);
+          var result = []
+          // Add the schedule events to the result list
+          for (var i = 0; i < rows.length; i++){
+            result.push({ name: rows[i].event_event,
+              start: rows[i].event_start,
+              end: rows[i].event_end,
+              location: rows[i].event_location,
+              phone: rows[i].event_phone,
+              info: rows[i].event_info,
+              url: rows[i].event_url});
+          }
+          //console.log(results)
+          res.json(result);
+          //res.json({status:'success'})
+        }
+        // Close the database connection
+        connection.end();
+      });
+    }
+  });
+});
+
+app.get('/addEvent', function(req, res) {
+  console.log("add Event endpoint");
+  if (req.session.loggedIn) {
+    // Redirect to the Schedule page if the user is logged in
+    //console.log("already logged in")
+    res.render('addEvent');
+  } else {
+    // Otherwise, display the login page
+    res.redirect('/login')
+  }
+});
+
+app.get('/eventEntry', function(req, res) {
+  // Extract form data from the request body
+  var eventData = {
+    event_day: req.query.day,
+    event_event: req.query.event,
+    event_start: req.query.start,
+    event_end: req.query.end,
+    event_location: req.query.location,
+    event_phone: req.query.phone,
+    event_info: req.query.info,
+    event_url: req.query.url
   };
+  console.log(eventData);
+  // Create a connection to the MySQL database
+  var connection = mysql.createConnection({
+    host: 'cse-mysql-classes-01.cse.umn.edu',
+    user: 'C4131S24NU35',
+    password: '1275',
+    database: 'C4131S24NU35'
+  });
 
-  dbCon.query("SELECT * from tbl_events WHERE event_id = " + mysql.escape(eventID), function(err, entries){
-    if (err) throw err;
-
-    if (entries.length > 0){
-      dbCon.query("UPDATE tbl_events SET ? WHERE event_id = " + mysql.escape(eventID), event, function(err, entries){ 
+  // Connect to the MySQL database
+  connection.connect(function(err) {
+    if (err) {
+      throw err;
+    } else {
+      // Insert the form data into the tbl_events table
+      var query = "INSERT INTO tbl_events SET ?";
+      connection.query(query, eventData, function(err, result) {
         if (err) {
-          res.sendStatus(422);
           throw err;
         } else {
-          res.redirect("/schedule");
+          console.log("Event inserted successfully!");
+          // Redirect to the Schedule page upon successful insertion
+          res.json({status:'success'})
+          return;
         }
-      })
-    } else {
-      res.sendStatus(404);
+      });
     }
   });
 });
+
+
+//console.log(__dirname + '/static');
+// middle ware to serve static files
+app.use('/static', express.static(__dirname + '/static'));
+
 
 // function to return the 404 message and error to client
 app.get('*', function(req, res) {
   // add details
   res.sendStatus(404);
 });
-
-app.delete("/deleteEvent/:eventId", function (req, res) {
-  const eventId = req.params.eventId;
-  dbCon.query("SELECT * FROM tbl_events WHERE event_id = " + eventId, function (err, result) {
-    if (err) throw err;
-
-    if (result.length > 0) {
-      dbCon.query("DELETE from tbl_events where event_id = " + eventId, function (err, entries) {
-        if (err) throw err;
-        res.sendStatus(200); 
-      });
-    } else {
-      res.sendStatus(404);
-    }
-  });
-});
-
-
