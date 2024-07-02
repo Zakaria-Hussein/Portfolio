@@ -1,44 +1,23 @@
-// YOU CAN USE THIS FILE AS REFERENCE FOR SERVER DEVELOPMENT
-
-// include the express modules
 var express = require("express");
-
-// create an express application
 var app = express();
-const url = require('url');
-
-// helps in extracting the body portion of an incoming request stream
-var bodyparser = require('body-parser'); // this has been depricated, is now part of express...
-
-// fs module - provides an API for interacting with the file system
-var fs = require("fs");
-
-// helps in managing user sessions
+var bodyParser = require('body-parser');
 var session = require('express-session');
-
-// include the mysql module
+var path = require('path'); // Import the path module
 var mysql = require("mysql");
-
-// Bcrypt library for comparing password hashes
 const bcrypt = require('bcrypt');
-
-// A possible library to help reading uploaded file.
-// var formidable = require('formidable')
 
 
 // apply the body-parser middleware to all incoming requests
-app.use(bodyparser());
-app.set('view engine', 'pug');
-app.set('views', __dirname + '/views');
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // use express-session
-// in mremory session is sufficient for this assignment
+// in memory session is sufficient for this assignment
 app.use(session({
   secret: "csci4131secretkey",
   saveUninitialized: true,
   resave: false
-}
-));
+}));
 
 // server listens on port 9007 for incoming connections
 app.listen(9007, () => console.log('Listening on port 9007!'));
@@ -48,7 +27,7 @@ console.log("After listen");
 // function to return the welcome page
 app.get('/',function(req, res) {
   console.log("In Welcome");
-  res.render('welcome');
+  res.sendFile(path.join(__dirname, 'static', 'html', 'index.html'));
 });
 
 app.get('/login',function(req, res) {
@@ -59,7 +38,8 @@ app.get('/login',function(req, res) {
     res.redirect('/schedule');
   } else {
     // Otherwise, display the login page
-    res.render('login');
+    res.sendFile(path.join(__dirname, 'static', 'html', 'login.html'));
+    
   }
 });
 
@@ -133,7 +113,7 @@ app.get('/schedule', function(req, res) {
   if (req.session.loggedIn) {
     // Redirect to the Schedule page if the user is logged in
     //console.log("already logged in")
-    res.render('schedule');
+    res.sendFile(path.join(__dirname, 'static', 'html', 'schedule.html'));
   } else {
     // Otherwise, display the login page
     res.redirect('/login')
@@ -200,7 +180,7 @@ app.get('/addEvent', function(req, res) {
   if (req.session.loggedIn) {
     // Redirect to the Schedule page if the user is logged in
     //console.log("already logged in")
-    res.render('addEvent');
+    res.sendFile(path.join(__dirname, 'static', 'html', 'addEvent.html'));
   } else {
     // Otherwise, display the login page
     res.redirect('/login')
