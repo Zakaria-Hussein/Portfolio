@@ -1,0 +1,3 @@
+exclude:
+  - "Full Stack Website/account/node_modules"
+  - "Full Stack Website/event/node_modules"
